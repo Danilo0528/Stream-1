@@ -31,8 +31,15 @@ EOF
 service nginx start
 
 # Iniciar la transmisión a YouTube
+#ffmpeg -stream_loop -1 \
+#    -re -i "http://localhost:$SERVER_PORT/video.mp4" \
+#    -c:v libx264 -preset veryfast -maxrate 3000k -bufsize 6000k -g 50 \
+#    -c:a aac -b:a 160k -ar 44100 \
+#    -f flv "rtmp://a.rtmp.youtube.com/live2/$YOUTUBE_KEY"
+
 ffmpeg -stream_loop -1 \
     -re -i "http://localhost:$SERVER_PORT/video.mp4" \
-    -c:v libx264 -preset veryfast -maxrate 3000k -bufsize 6000k -g 50 \
-    -c:a aac -b:a 160k -ar 44100 \
+    -c:v libx264 -preset ultrafast -maxrate 1200k -bufsize 2400k -g 50 \
+    -c:a aac -b:a 128k -ar 44100 \
     -f flv "rtmp://a.rtmp.youtube.com/live2/$YOUTUBE_KEY"
+    
