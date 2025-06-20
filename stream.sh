@@ -39,7 +39,7 @@ service nginx start
 
 ffmpeg -stream_loop -1 \
     -re -i "http://localhost:$SERVER_PORT/video.mp4" \
-    -c:v libx264 -preset veryfast -maxrate 800k -bufsize 1000k -g 50 \
+    -c:v libx264 -preset ultrafast -maxrate 1600k -bufsize 3200k -g 50 \
     -c:a aac -b:a 128k -ar 44100 \
     -f flv "rtmp://a.rtmp.youtube.com/live2/$YOUTUBE_KEY"
 
