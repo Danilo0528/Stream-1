@@ -3,13 +3,13 @@ FROM ubuntu:22.04
 # Instalar dependencias
 RUN apt-get update && apt-get install -y \
     ffmpeg \
-    nginx \
     && rm -rf /var/lib/apt/lists/*
 
 # Copiar archivos
 WORKDIR /app
 COPY stream.sh /app/
-COPY rickroll.mp4 /app/
+COPY 215407_small.mp4 /app/
+COPY light-thunder.mp3 /app/
 
 # Dar permisos de ejecución al script
 RUN chmod +x /app/stream.sh
