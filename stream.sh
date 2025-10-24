@@ -28,6 +28,6 @@ nginx -g 'daemon off;' &
 ffmpeg -re -stream_loop -1 -i "$VIDEO_FILE" \
     -stream_loop -1 -i "$AUDIO_FILE" \
     -map 0:v:0 -map 1:a:0 \
-    -c:v copy \
+    -c:v libx264 -preset ultrafast -crf 28 -maxrate 1000k -bufsize 2000k \
     -c:a aac -b:a 128k -ar 44100 \
     -f flv "rtmp://a.rtmp.youtube.com/live2/$YOUTUBE_KEY"
