@@ -23,7 +23,8 @@ EOF
 nginx -g 'daemon off;' &
 
 # Iniciar la transmisión a YouTube en primer plano, leyendo el archivo directamente
+# Usamos -preset ultrafast y un bitrate más bajo para reducir la carga en la CPU y asegurar una transmisión estable.
 ffmpeg -re -stream_loop -1 -i "$VIDEO_FILE" \
-    -c:v libx264 -preset veryfast -crf 23 -maxrate 2500k -bufsize 5000k -g 50 \
-    -c:a aac -b:a 128k -ar 44100 -strict experimental \
+    -c:v libx264 -preset ultrafast -tune zerolatency -b:v 1000k -maxrate 1000k -bufsize 2000k -g 48 \
+    -c:a aac -b:a 96k -ar 44100 \
     -f flv "rtmp://a.rtmp.youtube.com/live2/$YOUTUBE_KEY"
