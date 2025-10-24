@@ -1,22 +1,14 @@
 FROM ubuntu:22.04
 
-# Instalar dependencias
-RUN apt-get update && apt-get install -y \
-    ffmpeg \
-    nginx \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copiar archivos
+# Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
-COPY stream.sh /app/
-COPY 215407_small.mp4 /app/
-COPY light-thunder.mp3 /app/
 
-# Dar permisos de ejecución al script
-RUN chmod +x /app/stream.sh
+# Copia el script de transmisión y el archivo de video al directorio de trabajo
+COPY stream.sh .
+COPY rickroll.mp4 .
 
-# Exponer el puerto para el servidor web
-EXPOSE 8080
+# Otorga permisos de ejecución al script
+RUN chmod +x ./stream.sh
 
-# Ejecutar el script al iniciar el contenedor
-CMD ["/app/stream.sh"]
+# Ejecuta el script de transmisión cuando el contenedor se inicie
+CMD ["./stream.sh"]
