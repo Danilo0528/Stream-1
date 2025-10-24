@@ -3,6 +3,7 @@ FROM ubuntu:22.04
 # Instalar dependencias
 RUN apt-get update && apt-get install -y \
     ffmpeg \
+    nginx \
     && rm -rf /var/lib/apt/lists/*
 
 # Copiar archivos
